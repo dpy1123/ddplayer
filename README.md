@@ -37,7 +37,7 @@ player.sendDanmus("弹幕提交的地址","videoID","userID","弹幕内容","Scr
 1.video标签尽量指定宽和高，像这样：<br>
 <pre>
 &lt;video id="dd" class="playr_video" width="600" height="280"&gt;
-	&lt;source src="http://bcs.duapp.com/ddplayer/video%2Ftest.mp4" type="video/mp4" /source&gt;
+	&lt;source src="http://bcs.duapp.com/ddplayer/video%2Ftest.mp4" type="video/mp4" /&gt;
 &lt;/video&gt;
 </pre>
 2.尽量使用chrome浏览器，其他浏览器不保证兼容性。<br>
@@ -57,7 +57,7 @@ player.sendDanmus(wsUrl,"vid","uid","DDtext中文","Scroll");//并且发送弹�
 
 视频播放器使用的是Playr：https://github.com/delphiki/Playr <br>
 弹幕播放器是本项目<br>
-颜色拾取面板是colorpicker: http://www.eyecon.ro/colorpicker/ <br>
+颜色拾取面板是colorpicker：http://www.eyecon.ro/colorpicker/ <br>
 
 
 
