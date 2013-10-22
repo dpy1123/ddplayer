@@ -36,9 +36,9 @@ player.sendDanmus("弹幕提交的地址","videoID","userID","弹幕内容","Scr
 注意：<br>
 1.video标签尽量指定宽和高，像这样：<br>
 <pre>
-<video id="dd" class="playr_video" width="600" height="280">
+"<video id="dd" class="playr_video" width="600" height="280">
 	<source src="http://bcs.duapp.com/ddplayer/video%2Ftest.mp4" type="video/mp4"></source>
-</video>
+</video>"
 </pre>
 2.尽量使用chrome浏览器，其他浏览器不保证兼容性。<br>
 3.DDPlayer支持WebSocket，使用时要这样：<br>
@@ -63,6 +63,6 @@ player.sendDanmus(wsUrl,"vid","uid","DDtext中文","Scroll");//并且发送弹�
 
 特别感谢
 ========
-delphiki的Playr项目，mrdoob的three.js项目，以及福娃同学的mukioplayer项目
+delphiki的Playr项目，mrdoob的three.js项目，以及福娃同学的mukioplayer项目。
 
 
