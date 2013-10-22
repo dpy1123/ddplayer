@@ -28,10 +28,19 @@ var player = new DD.Player("dd", v);
 var url = "http://getDanmus";
 player.init("canvas", url);
 </pre>
-3.发送弹幕的时，调用<br>
+3.发送弹幕时，调用<br>
 <pre>
 player.sendDanmus("弹幕提交的地址","videoID","userID","弹幕内容","Scroll","Red");
 </pre>
+4.显示/隐藏弹幕，调用<br>
+<pre>
+player.toggleDanmu();
+</pre>
+5.如果视频快进了，最好清除一下当前屏幕上的弹幕，调用<br>
+<pre>
+player.frame.clearDanmu();
+</pre>
+
 
 注意：<br>
 1.video标签尽量指定宽和高，像这样：<br>
@@ -56,7 +65,6 @@ player.sendDanmus(wsUrl,"vid","uid","DDtext中文","Scroll");//并且发送弹�
 地址：http://1.ddplayer.duapp.com/  <br>
 
 视频播放器使用的是Playr：https://github.com/delphiki/Playr <br>
-弹幕播放器是本项目<br>
 颜色拾取面板是colorpicker：http://www.eyecon.ro/colorpicker/ <br>
 
 
