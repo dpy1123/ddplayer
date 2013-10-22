@@ -36,10 +36,7 @@ player.sendDanmus("弹幕提交的地址","videoID","userID","弹幕内容","Scr
 <pre>
 player.toggleDanmu();
 </pre>
-5.如果视频快进了，最好清除一下当前屏幕上的弹幕，调用<br>
-<pre>
-player.frame.clearDanmu();
-</pre>
+
 
 
 注意：<br>
