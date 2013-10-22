@@ -9,11 +9,11 @@ ddplayer
 
 项目说明
 =========
-core文件夹和DDplayer.js是项目的源文件。
-ddplayer.min.js是编译后的单一js文件。
-Playr-master文件夹是delphiki/Playr项目的源码，这是一个基于html5的video播放器，用来提供视频播放功能。
-stats.min.js是测试帧率时用的，提取自three.js项目。
-test.html是测试页面。
+core文件夹和DDplayer.js是项目的源文件。<br>
+ddplayer.min.js是编译后的单一js文件。<br>
+Playr-master文件夹是delphiki/Playr项目的源码，这是一个基于html5的video播放器，用来提供视频播放功能。<br>
+stats.min.js是测试帧率时用的，提取自three.js项目。<br>
+test.html是测试页面。<br>
 
 
 Demo
