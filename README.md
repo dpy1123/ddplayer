@@ -40,20 +40,25 @@ player.toggleDanmu();
 
 
 注意：<br>
-1.video标签尽量指定宽和高，像这样：<br>
+1.一定要确保弹幕播放器的初始化在你的视频播放器初始化之后，否则chrome下全屏看不到弹幕。<br>
+建议的初始化方式：<br>
 <pre>
-&lt;video id="dd" class="playr_video" width="600" height="280"&gt;
-	&lt;source src="http://bcs.duapp.com/ddplayer/video%2Ftest.mp4" type="video/mp4" /&gt;
-&lt;/video&gt;
+window.addEventListener('DOMContentLoaded',function(){
+	var v = document.querySelector("video");
+	var playr = new Playr("dd", v);//[初始化视频播放器]
+	player = new DD.Player("dd", v);
+	var url = "http://getDanmus";
+	player.init("canvas", url);//[初始化弹幕播放器]
+}, false);
 </pre>
-2.尽量使用chrome浏览器，其他浏览器不保证兼容性。<br>
+2.尽量使用chrome浏览器和firefox浏览器，其他浏览器不保证兼容性。<br>
 3.DDPlayer支持WebSocket，使用时要这样：<br>
 <pre>
 //支持ws版
 player.init("canvas", url, wsUrl);//在初始化时给出WebSocket的地址
 player.sendDanmus(wsUrl,"vid","uid","DDtext中文","Scroll");//并且发送弹幕的地址必须是初始化时的wsUrl
 </pre>
-
+4.DDPlayer支持发送自定义弹幕。
 
 
 
