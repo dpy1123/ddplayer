@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title> New Document </title>
+  <meta name="Generator" content="EditPlus">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <script type="text/javascript" src="DDplayer.js"></script>
+	<script type="text/javascript" src="core/Sprite.js"></script>
+	<script type="text/javascript" src="core/Frame.js"></script>
+	<script type="text/javascript" src="core/CommentFrame.js"></script>
+	<script type="text/javascript" src="core/Comment.js"></script>
+	<script type="text/javascript" src="core/Player.js"></script>
+	<script type="text/javascript" src="core/Loader.js"></script>
+
+	<script type="text/javascript" src="customDanmu.js"></script>
+<!--	<script type="text/javascript" src="ddplayer.min.js"></script>  -->
+	
+	<script type="text/javascript" src="stats.min.js"></script>
+	<link rel="stylesheet" href="Playr-master/playr.css" type="text/css">
+	<script type="text/javascript" src="Playr-master/playr.js"></script>
+	<script>
+	window.addEventListener('DOMContentLoaded',function(){
+		//因为chrome和firefox对于video加载和load方法调用的时机不同，在此做fix。详见问题记录.txt
+		load();
+	}, false);
+
+		var player;
+		function load() {
+			/*帧数检测工具
+			var stats = new Stats();
+			stats.domElement.style.position = 'absolute';
+			stats.domElement.style.top = '0px';
+			var container = document.getElementById( 'container' );
+			container.appendChild( stats.domElement );*/
+
+			/*测试动画基础类
+			var sprite = new DD.Sprite(0, 0, 20, 20);
+			var ctx = document.getElementById('canvas').getContext("2d");
+			var frame = new DD.Frame(480, 320, ctx);
+			frame.addSprite(sprite);
+			frame.begin();*/
+
+			/*测试弹幕动画相关类
+			var ctx = document.getElementById('canvas').getContext("2d");
+			var frame = new DD.CommentFrame(480, 320, ctx);
+			for(var i =0; i<300;i++){
+				frame.addSprite("DD"+i);
+			}
+			frame.begin = function(stats){
+				if(this.renderTimer != null) return;//防止重复启动				
+				//使用html5新增的requestAnimFrame API
+				var that = this;
+				( function animate (){
+					that.updateSprite();//更新Sprite
+					that.clearSprite();//清除无效Sprite
+					that.render();
+					stats.update();//【重写，以便调用帧数工具】
+					that.renderTimer = requestAnimationFrame(animate, that);
+				} )();
+			};
+			frame.begin(stats);*/
+
+			/*测试extend方法
+			var f = {
+				say:function(){alert("f-say");}
+				}
+			var s = {}
+			//jQuery.extend(s,f);
+			DD.extend(s,f);
+			s.say();*/
+
+			/*测试loader
+			var loader = new DD.Loader(true);
+			var div = loader.addStatusElement();
+			document.getElementById('container').appendChild(div);
+			loader.load("http://www.baidu.com/s?wd=withCredentials&rsv_bp=0&ch=&tn=nbmagician_ql&bar=&rsv_spt=3&ie=utf-8&rsv_n=2&rsv_sug3=1&rsv_sug1=1&rsv_sug4=88&inputT=526",function(a){alert(a);});*/
+
+			/*测试框架主体*/
+			//var v = document.getElementById('dd'); //在Chrome下用'dd',因为这时候playr建立的video还没有渲染到dom,而以前的video元素还没有删除
+			//var v = document.getElementById('playr_video_0');//在firefox下,playr建立的video立即生效而原来的video已经删除,因此在这里用playr的id
+			var v = document.querySelector("video");//还是用querySelector没有什么限制,总之我只拿1个video元素
+
+			 
+			var playr = new Playr("dd", v);//[初始化视频播放器]
+			player = new DD.Player("dd", v);//[初始化弹幕播放器]
+			var url = "http://getDanmus";
+			var wsUrl = "ws://realTimeDanmus";
+			//支持ws版
+			//player.init("canvas", url, wsUrl);
+			//player.sendDanmus(wsUrl,"vid","uid","DDtext中文","Scroll");
+			//ajax版
+			player.init("canvas", url);//[初始化弹幕播放器]
+			player.sendDanmus("http://sendDanmus","vid","uid","DDtext中文","Scroll","Red");
+			
+
+			
+			//这里模拟video控件中添加的play事件，无影响
+			//v.addEventListener('play', function(){ 
+					//alert("another play action");
+			//}, false);
+
+			//预置的自定义弹幕类
+			document.getElementById('customDanmu').value = 
+					"CustomComment = function(param){"+"\n"+
+					"	DD.Comment.call(this, param);"+"\n"+
+					"};"+"\n"+
+
+					"CustomComment.prototype = Object.create(DD.Comment.prototype);"+"\n"+
+
+					"CustomComment.prototype.draw = function(ctx) {"+"\n"+
+					"	ctx.save();"+"\n"+
+
+					"	ctx.fillStyle = this.color;"+"\n"+
+					"	ctx.rotate(Math.PI/6);"+"\n"+
+					"	ctx.fillText('Love', this.x, 0)"+"\n"+
+						
+					"	ctx.restore();"+"\n"+
+					"};"+"\n"+
+
+					"CustomComment.prototype.move = function() {"+"\n"+
+					"	this.x++;"+"\n"+
+					"};";
+		}
+
+		function sendCustomDanmu(){
+			var clazz = document.getElementById('customDanmu').value;
+			if(typeof clazz == "undefined") return;
+			var param = document.getElementById('param').value;
+			player.sendCustomDanmus("http://sendDanmus","vid","uid",clazz,param);
+		}
+	</script>
+
+ </head>
+
+ <body >
+	<div id="container"></div>
+	<div id="player" style="display: inline-block;">
+		<video id="dd" class="playr_video" >
+			<source src="http://bcs.duapp.com/ddplayer/video%2Ftest.mp4" type="video/mp4"></source>
+		</video>
+	</div>
+	<div style="display: inline-block;">
+		<div>custom def: <textarea id="customDanmu" style="margin: 2px; width: 480px; height: 220px;"></textarea></div>
+		<div>param: <input id="param" value="{'lifeTime':4*60}"></div>
+		<button onclick="sendCustomDanmu()">自定义弹幕</button>
+	</div>
+ </body>
+</html>
