@@ -1,39 +1,39 @@
 /**
- * ×ÖÄ»¶ÔÏó£¬¼Ì³Ð×ÔSprite¶ÔÏó
+ * å­—å¹•å¯¹è±¡ï¼Œç»§æ‰¿è‡ªSpriteå¯¹è±¡
  * @param param = {x, y, width, height, speed, text, lifeTime, color, font} 
  */
 DD.Comment = function(param){
 
 	DD.Sprite.call(this, param.x, param.y, param.width, param.height, param.speed);
 
-	this.text = param.text || "";//ÎÄ×ÖÄÚÈÝ
+	this.text = param.text || "";//æ–‡å­—å†…å®¹
 	this.lifeTime = param.lifeTime || 0;
 	this.color = param.color || "rgb(255,255,255)";
-	this.font = param.font || "normal bold 22px »ªÎÄÏ¸ºÚ";
-	this.alive = true;//ÉúÃü×´Ì¬
+	this.font = param.font || "normal bold 22px åŽæ–‡ç»†é»‘";
+	this.alive = true;//ç”Ÿå‘½çŠ¶æ€
 };
 
 DD.Comment.prototype = Object.create(DD.Sprite.prototype);
 /**
- * µ¯Ä»µÄ»æÖÆ·½·¨
+ * å¼¹å¹•çš„ç»˜åˆ¶æ–¹æ³•
  */
 DD.Comment.prototype.draw = function(canvasContext) {
-//	canvasContext.save();//±£´æÑùÊ½¡¾Ã¿ÖÖµ¯Ä»¶¼ÓÐ×Ô¼ºµÄÑùÊ½£¬ÎªÌá¸ßÐÔÄÜ£¬×¢ÊÍµôctx×´Ì¬µÄ±£´æºÍ»Ö¸´¡¿
+//	canvasContext.save();//ä¿å­˜æ ·å¼ã€æ¯ç§å¼¹å¹•éƒ½æœ‰è‡ªå·±çš„æ ·å¼ï¼Œä¸ºæé«˜æ€§èƒ½ï¼Œæ³¨é‡ŠæŽ‰ctxçŠ¶æ€çš„ä¿å­˜å’Œæ¢å¤ã€‘
 	canvasContext.fillStyle = this.color;
-	//ÉèÖÃÒõÓ°
+	//è®¾ç½®é˜´å½±
 //	canvasContext.shadowColor = "#808080";
 //	canvasContext.shadowOffsetX = 1;
 //	canvasContext.shadowOffsetY = 1;
 //	canvasContext.shadowBlur = 1;
 	canvasContext.font = this.font;
-	canvasContext.fillText(this.text, this.x, this.y + this.height);//fillText(x,y)¶¨Î»µÄÃªµãÔÚ×ÖÄ»µÄ×óÏÂ½Ç
-//	canvasContext.restore();//»¹Ô­Ô­ÓÐÑùÊ½
+	canvasContext.fillText(this.text, this.x, this.y + this.height);//fillText(x,y)å®šä½çš„é”šç‚¹åœ¨å­—å¹•çš„å·¦ä¸‹è§’
+//	canvasContext.restore();//è¿˜åŽŸåŽŸæœ‰æ ·å¼
 };
 
 /**
- * ¸üÐÂµ¯Ä»µÄÉúÃü×´Ì¬
+ * æ›´æ–°å¼¹å¹•çš„ç”Ÿå‘½çŠ¶æ€
  */
 DD.Comment.prototype.updateLifeTime = function() {
-	this.lifeTime--;//Ã¿Ë¢ÐÂÒ»Ö¡£¬´æ»îÊ±¼ä-1
+	this.lifeTime--;//æ¯åˆ·æ–°ä¸€å¸§ï¼Œå­˜æ´»æ—¶é—´-1
 	this.alive = (this.lifeTime >= 0);
 };

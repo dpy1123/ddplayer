@@ -1,24 +1,24 @@
 /**
- * Ö¡¶ÔÏó,Ã¿¸ôÒ»¶ÎÊ±¼äÖØ»­×Ô¼ºÒ»´Î,ÀàËÆflashÖĞµÄÖ¡¸ÅÄî
- * Ô­Àí¾ÍÊÇÃ¿µ½Ò»¶¨Ê±¼ä¾ÍÇå³ıcanvas,È»ºóµ÷ÓÃµ±Ç°Ö¡ÀïµÄËùÓĞµÄ¶¯»­ÔªËØµÄdraw()·½·¨,½«ËùÓĞ¶¯»­ÔªËØ°´ÕÕĞÂµÄÅäÖÃÖØ»­
- * ´Ó¶øÉú³É¶¯»­,Ö®ºó³ÌĞòÎŞĞè¹ØĞÄÔªËØµÄÖØ»­,Ö»ĞèÒªµ÷ÕûÔªËØÊôĞÔ¼´¿É,Õâ¸ö¶ÔÏó»á×Ô¶¯¹ÜÀíÔªËØµÄäÖÈ¾
+ * å¸§å¯¹è±¡,æ¯éš”ä¸€æ®µæ—¶é—´é‡ç”»è‡ªå·±ä¸€æ¬¡,ç±»ä¼¼flashä¸­çš„å¸§æ¦‚å¿µ
+ * åŸç†å°±æ˜¯æ¯åˆ°ä¸€å®šæ—¶é—´å°±æ¸…é™¤canvas,ç„¶åè°ƒç”¨å½“å‰å¸§é‡Œçš„æ‰€æœ‰çš„åŠ¨ç”»å…ƒç´ çš„draw()æ–¹æ³•,å°†æ‰€æœ‰åŠ¨ç”»å…ƒç´ æŒ‰ç…§æ–°çš„é…ç½®é‡ç”»
+ * ä»è€Œç”ŸæˆåŠ¨ç”»,ä¹‹åç¨‹åºæ— éœ€å…³å¿ƒå…ƒç´ çš„é‡ç”»,åªéœ€è¦è°ƒæ•´å…ƒç´ å±æ€§å³å¯,è¿™ä¸ªå¯¹è±¡ä¼šè‡ªåŠ¨ç®¡ç†å…ƒç´ çš„æ¸²æŸ“
  */
 DD.Frame = function(width, height, canvasContext){
 	/**
-	 * Ö¡µÄ¿íºÍ¸ß
+	 * å¸§çš„å®½å’Œé«˜
 	 */
 	this.width = width;
 	this.height = height;
 	/**
-	 * ¼ÇÂ¼»æÖÆframeµÄ¶¨Ê±Æ÷id
+	 * è®°å½•ç»˜åˆ¶frameçš„å®šæ—¶å™¨id
 	 */
 	this.renderTimer = null;
 	/**
-	 * ±¾Ö¡ËùÒª»æÖÆµÄ¾«ÁéÔªËØ
+	 * æœ¬å¸§æ‰€è¦ç»˜åˆ¶çš„ç²¾çµå…ƒç´ 
 	 */
 	this.sprites = [];
 	/**
-	 * ±£´æ±¾Ö¡Ïà¹ØµÄcanvas±êÇ©µÄcontext
+	 * ä¿å­˜æœ¬å¸§ç›¸å…³çš„canvasæ ‡ç­¾çš„context
 	 */
 	this.ctx = canvasContext;
 };
@@ -26,23 +26,23 @@ DD.Frame.prototype = {
 	constructor: DD.Frame,
 
 	/**
-	 * ¿ªÊ¼¶¯»­
+	 * å¼€å§‹åŠ¨ç”»
 	 */	
 	begin:function(){
-		if(this.renderTimer != null) return;//·ÀÖ¹ÖØ¸´Æô¶¯
+		if(this.renderTimer != null) return;//é˜²æ­¢é‡å¤å¯åŠ¨
 		
-		//Ê¹ÓÃhtml5ĞÂÔöµÄrequestAnimFrame API
+		//ä½¿ç”¨html5æ–°å¢çš„requestAnimFrame API
 		var that = this;
 		( function animate (){
-			that.updateSprite();//¸üĞÂSprite
-			that.clearSprite();//Çå³ıÎŞĞ§Sprite
+			that.updateSprite();//æ›´æ–°Sprite
+			that.clearSprite();//æ¸…é™¤æ— æ•ˆSprite
 			that.render();
 			that.renderTimer = requestAnimationFrame(animate, that);
 		} )();
 	},
 	
 	/**
-	 * äÖÈ¾±¾Ö¡¡¾¿É¸ù¾İĞèÒªÔÚ×Ó¶ÔÏóÖĞ¸´Ğ´´Ë·½·¨¡¿
+	 * æ¸²æŸ“æœ¬å¸§ã€å¯æ ¹æ®éœ€è¦åœ¨å­å¯¹è±¡ä¸­å¤å†™æ­¤æ–¹æ³•ã€‘
 	 */
 	render:function(){
 		this.ctx.clearRect(0, 0, this.width, this.height);
@@ -52,7 +52,7 @@ DD.Frame.prototype = {
 	},
 	
 	/**
-	 * Í£Ö¹¶¯»­
+	 * åœæ­¢åŠ¨ç”»
 	 */
 	stop:function(){
 		if(this.renderTimer == null) return;
@@ -61,7 +61,7 @@ DD.Frame.prototype = {
 	},
 	
 	/**
-	 * Ìí¼Ó¾«ÁéÔªËØ
+	 * æ·»åŠ ç²¾çµå…ƒç´ 
 	 * @param sprite
 	 */
 	addSprite:function(sprite){
@@ -69,7 +69,7 @@ DD.Frame.prototype = {
 	},
 	
 	/**
-	 * ¸üĞÂ±¾frameÏÂËùÓĞSpriteµÄÎ»ÖÃ¡¾¿É¸ù¾İĞèÒªÔÚ×Ó¶ÔÏóÖĞ¸´Ğ´´Ë·½·¨¡¿
+	 * æ›´æ–°æœ¬frameä¸‹æ‰€æœ‰Spriteçš„ä½ç½®ã€å¯æ ¹æ®éœ€è¦åœ¨å­å¯¹è±¡ä¸­å¤å†™æ­¤æ–¹æ³•ã€‘
 	 */
 	updateSprite:function(){
 		for (var i=0; i < this.sprites.length; i++) {
@@ -78,15 +78,15 @@ DD.Frame.prototype = {
 	},
 	
 	/**
-	 * Çå³ı³¬³öÏÔÊ¾·¶Î§µÄ¾«ÁéÔªËØ¡¾¿É¸ù¾İĞèÒªÔÚ×Ó¶ÔÏóÖĞ¸´Ğ´´Ë·½·¨¡¿
+	 * æ¸…é™¤è¶…å‡ºæ˜¾ç¤ºèŒƒå›´çš„ç²¾çµå…ƒç´ ã€å¯æ ¹æ®éœ€è¦åœ¨å­å¯¹è±¡ä¸­å¤å†™æ­¤æ–¹æ³•ã€‘
 	 */
 	clearSprite:function(){
 		for (var i=0; i < this.sprites.length; i++) {
 			if(this.sprites[i].x > this.width || this.sprites[i].y > this.height ||
 					this.sprites[i].x+this.sprites[i].width < 0 || 
 					this.sprites[i].y+this.sprites[i].height < 0 ){ 
-				delete this.sprites[i];//É¾³ıÏàÓ¦¶ÔÏó
-				this.sprites = this.sprites.slice(0, i).concat(this.sprites.slice(i+1, this.sprites.length));//Çå³ıÊı×éÖĞ¸ÃÎ»ÖÃ
+				delete this.sprites[i];//åˆ é™¤ç›¸åº”å¯¹è±¡
+				this.sprites = this.sprites.slice(0, i).concat(this.sprites.slice(i+1, this.sprites.length));//æ¸…é™¤æ•°ç»„ä¸­è¯¥ä½ç½®
 			}
 		}
 	}

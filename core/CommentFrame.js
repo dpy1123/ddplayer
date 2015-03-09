@@ -1,5 +1,5 @@
 /**
- * µ¯Ä»frame¶ÔÏó£¬¼Ì³Ğ×ÖFrame¶ÔÏó
+ * å¼¹å¹•frameå¯¹è±¡ï¼Œç»§æ‰¿å­—Frameå¯¹è±¡
  * @param width
  * @param height
  * @param canvasContext
@@ -9,15 +9,15 @@ DD.CommentFrame = function(width, height, canvasContext){
 	DD.Frame.call(this, width, height, canvasContext);
 
 	/**
-	 * ±êÖ¾±¾Ö¡Ëù»æÖÆµÄµ¯Ä»ÊÇ¿É¼û»¹ÊÇÒş²Ø
+	 * æ ‡å¿—æœ¬å¸§æ‰€ç»˜åˆ¶çš„å¼¹å¹•æ˜¯å¯è§è¿˜æ˜¯éšè—
 	 */
 	this.visible = true;	
 	/**
-	 * ±£´æĞèÒª»æÖÆµÄ¶à²ãµ¯Ä»
+	 * ä¿å­˜éœ€è¦ç»˜åˆ¶çš„å¤šå±‚å¼¹å¹•
 	 */
 	this.layers = [];
 	/**
-	 * ´´½¨»º³å»­²¼
+	 * åˆ›å»ºç¼“å†²ç”»å¸ƒ
 	 */
 	this.bufCanvas = document.createElement("canvas");
 	this.bufCanvas.width = width;
@@ -26,7 +26,7 @@ DD.CommentFrame = function(width, height, canvasContext){
 DD.CommentFrame.prototype = Object.create(DD.Frame.prototype);
 
 /**
- * ÖØÉèÖÃ±¾frameµÄ¿íºÍ¸ß£¬Í¬Ê±bufCanvas³ß´çÒ²ËæÖ®ĞŞ¸Ä
+ * é‡è®¾ç½®æœ¬frameçš„å®½å’Œé«˜ï¼ŒåŒæ—¶bufCanvaså°ºå¯¸ä¹Ÿéšä¹‹ä¿®æ”¹
  * @param width
  * @param height
  */
@@ -40,22 +40,22 @@ DD.CommentFrame.prototype.resize = function(width, height) {
 
 /**
  * @Override
- * ÏòFrameÖĞÌí¼Óµ¯Ä»¶ÔÏó.
- * ÔÚ±¾FrameÖĞ¸ù¾İÉú³Éµ¯Ä»Sprite.ÕâÑùµ±²¥·ÅÆ÷½ø¶ÈseekµÄÊ±ºò£¬ÖØĞÂ¸ù¾İµ¯Ä»ĞÅÏ¢ÖØĞÂnewµÄSprite¶ÔÏóµÄxÎ»ÖÃÊÇ¶ÔµÄ£»
- * Èç¹ûÔÚPlayrÖĞnewºÃÁË£¬ÔÙ¸ù¾İÊ±¼äadd½øÀ´£¬µ±²¥·ÅÆ÷Íù»ØseekµÄÊ±ºò£¬¼Ó½øÀ´µÄÊÇÒÑ´æÔÚµÄ¶ÔÏó£¬ÕâÊ±¶ÔÏóµÄx¿ÉÄÜÊÇÒÑ¾­³¬³öÏÔÊ¾·¶Î§µÄ¸ºÊıÁË£¬²»»á±»ÔÙ´ÎÏÔÊ¾¡£ 
+ * å‘Frameä¸­æ·»åŠ å¼¹å¹•å¯¹è±¡.
+ * åœ¨æœ¬Frameä¸­æ ¹æ®ç”Ÿæˆå¼¹å¹•Sprite.è¿™æ ·å½“æ’­æ”¾å™¨è¿›åº¦seekçš„æ—¶å€™ï¼Œé‡æ–°æ ¹æ®å¼¹å¹•ä¿¡æ¯é‡æ–°newçš„Spriteå¯¹è±¡çš„xä½ç½®æ˜¯å¯¹çš„ï¼›
+ * å¦‚æœåœ¨Playrä¸­newå¥½äº†ï¼Œå†æ ¹æ®æ—¶é—´addè¿›æ¥ï¼Œå½“æ’­æ”¾å™¨å¾€å›seekçš„æ—¶å€™ï¼ŒåŠ è¿›æ¥çš„æ˜¯å·²å­˜åœ¨çš„å¯¹è±¡ï¼Œè¿™æ—¶å¯¹è±¡çš„xå¯èƒ½æ˜¯å·²ç»è¶…å‡ºæ˜¾ç¤ºèŒƒå›´çš„è´Ÿæ•°äº†ï¼Œä¸ä¼šè¢«å†æ¬¡æ˜¾ç¤ºã€‚ 
  */
 DD.CommentFrame.prototype.addSprite = function(text, style, color, font) {
 	var that = this;
 	
 	style = style || "Scroll";
 	color = color || "rgb(255,255,255)";
-	font = font || "normal bold 22px  ËÎÌå,Microsoft Yahei , Î¢ÈíÑÅºÚ , Tahoma , Arial , Helvetica , STHeiti";
+	font = font || "normal bold 22px  å®‹ä½“,Microsoft Yahei , å¾®è½¯é›…é»‘ , Tahoma , Arial , Helvetica , STHeiti";
 
-	//ÎÄ×ÖµÄ¿í¶È¡¾×¢Òâ£¬ctx.measureText(text).widthµÃµ½ÎÄ×Ö¿í¶ÈÊÇ»ùÓÚctxµ±Ç°µÄfontµÄ£¬Èç¹ûÈ¡µÃwidthºó¸Ä±äÁËctx.fontºÜ¿ÉÄÜwidthÓëÊµ¼ÊÎÄ×Ö¿í¶È²»Æ¥Åä¡¿
+	//æ–‡å­—çš„å®½åº¦ã€æ³¨æ„ï¼Œctx.measureText(text).widthå¾—åˆ°æ–‡å­—å®½åº¦æ˜¯åŸºäºctxå½“å‰çš„fontçš„ï¼Œå¦‚æœå–å¾—widthåæ”¹å˜äº†ctx.fontå¾ˆå¯èƒ½widthä¸å®é™…æ–‡å­—å®½åº¦ä¸åŒ¹é…ã€‘
 	this.bufCanvas.getContext("2d").font = font;
 	var width = this.bufCanvas.getContext("2d").measureText(text).width;
 	var height = 22;
-	var result = generateY(style, height, 0);//¼ÆËãµ¯Ä»Î»ÖÃ£¬´ÓµÚ0²ãµ¯Ä»¿ªÊ¼
+	var result = generateY(style, height, 0);//è®¡ç®—å¼¹å¹•ä½ç½®ï¼Œä»ç¬¬0å±‚å¼¹å¹•å¼€å§‹
 	var y = result.y;
 	var index = result.index;
 
@@ -75,14 +75,14 @@ DD.CommentFrame.prototype.addSprite = function(text, style, color, font) {
 	}));
 
 	/**
-	 * È·¶¨µ¯Ä»µÄËÙ¶È
-	 * @param style µ¯Ä»ÀàĞÍ
+	 * ç¡®å®šå¼¹å¹•çš„é€Ÿåº¦
+	 * @param style å¼¹å¹•ç±»å‹
 	 * @returns speed{}
 	 */
 	function generateSpeed(style, x, y, lifeTime){
 		if(style == "Scroll"){
 			return speed = {
-				x : -(x + width)/lifeTime, //-(ÒÆ¶¯¾àÀë+ÎÄ±¾¿í¶È)/(ÒÆ¶¯Ê±¼ä*Ö¡Êı)
+				x : -(x + width)/lifeTime, //-(ç§»åŠ¨è·ç¦»+æ–‡æœ¬å®½åº¦)/(ç§»åŠ¨æ—¶é—´*å¸§æ•°)
 				y : 0
 			};
 		}else if(style == "Static"){
@@ -94,9 +94,9 @@ DD.CommentFrame.prototype.addSprite = function(text, style, color, font) {
 	}
 
 	/**
-	 * È·¶¨µ¯Ä»µÄX×ø±ê
-	 * @param style µ¯Ä»ÀàĞÍ
-	 * @param textWidth ¸Ãµ¯Ä»µÄÎÄ×ÖÄÚÈİ¿í¶È
+	 * ç¡®å®šå¼¹å¹•çš„Xåæ ‡
+	 * @param style å¼¹å¹•ç±»å‹
+	 * @param textWidth è¯¥å¼¹å¹•çš„æ–‡å­—å†…å®¹å®½åº¦
 	 * @returns x
 	 */
 	function generateX(style, textWidth){
@@ -108,128 +108,128 @@ DD.CommentFrame.prototype.addSprite = function(text, style, color, font) {
 	};
 
 	/**
-	 * ¼ì²éÊÇ·ñÓëµ±Ç°FrameÖĞÆäËûµ¯Ä»ÖØµş
-	 * @param y ±¾µ¯Ä»y×ø±ê
-	 * @param size ±¾µ¯Ä»¸ß¶È
-	 * @param index µ±Ç°ÅÅĞòËùÔÚµÄµ¯Ä»²ã
-	 * @returns {Boolean} true±íÊ¾ÓĞÖØµş
+	 * æ£€æŸ¥æ˜¯å¦ä¸å½“å‰Frameä¸­å…¶ä»–å¼¹å¹•é‡å 
+	 * @param y æœ¬å¼¹å¹•yåæ ‡
+	 * @param size æœ¬å¼¹å¹•é«˜åº¦
+	 * @param index å½“å‰æ’åºæ‰€åœ¨çš„å¼¹å¹•å±‚
+	 * @returns {Boolean} trueè¡¨ç¤ºæœ‰é‡å 
 	 */
 	 function checkDanmu(y, size, index){
-		var currentLayerDanmus = that.layers[index];//È¡µÃµ±Ç°µ¯Ä»²ãµÄËùÓĞdanmus
+		var currentLayerDanmus = that.layers[index];//å–å¾—å½“å‰å¼¹å¹•å±‚çš„æ‰€æœ‰danmus
 		for ( var i = 0; i < currentLayerDanmus.length; i++) {
 			var danmu = currentLayerDanmus[i];
-			if( y+size > danmu.y && y < danmu.y+danmu.height ){//Èç¹ûÓĞÖØµş
+			if( y+size > danmu.y && y < danmu.y+danmu.height ){//å¦‚æœæœ‰é‡å 
 				return true;
 			}				
 		}
-		return false;//Ã»ÓĞÖØµş
+		return false;//æ²¡æœ‰é‡å 
 	};
 	/**
-	 * È·¶¨µ¯Ä»µÄy×ø±ê
-	 * @param style µ¯Ä»ÀàĞÍ
-	 * @param size ¸Ãµ¯Ä»µÄ¸ß(×ÖºÅ)
-	 * @param index µ±Ç°ÅÅĞòËùÔÚµÄµ¯Ä»²ã
-	 * @returns {} {'y×ø±ê':y,'ËùÔÚµ¯Ä»²ãºÅindex':index}
+	 * ç¡®å®šå¼¹å¹•çš„yåæ ‡
+	 * @param style å¼¹å¹•ç±»å‹
+	 * @param size è¯¥å¼¹å¹•çš„é«˜(å­—å·)
+	 * @param index å½“å‰æ’åºæ‰€åœ¨çš„å¼¹å¹•å±‚
+	 * @returns {} {'yåæ ‡':y,'æ‰€åœ¨å¼¹å¹•å±‚å·index':index}
 	 */
 	 function generateY(style, size, index){
-		if(index > 20) return {'y':0,'index':index-1};//³¬¹ı20²ã¾Í²»ÏÔÊ¾ÁË
+		if(index > 20) return {'y':0,'index':index-1};//è¶…è¿‡20å±‚å°±ä¸æ˜¾ç¤ºäº†
 
-		while(typeof that.layers[index] == "undefined"){//Èç¹ûµ±Ç°µ¯Ä»²ã»¹²»´æÔÚ
-			//Ôö¼Óµ¯Ä»²ã
+		while(typeof that.layers[index] == "undefined"){//å¦‚æœå½“å‰å¼¹å¹•å±‚è¿˜ä¸å­˜åœ¨
+			//å¢åŠ å¼¹å¹•å±‚
 			that.layers.push(new Array());
 		}
 
-		if(style == "Scroll"){//¹ö¶¯×ÖÄ»¾¡Á¿Ïò¶¥²¿¾Û¼¯,µ«²»ÖØµş
+		if(style == "Scroll"){//æ»šåŠ¨å­—å¹•å°½é‡å‘é¡¶éƒ¨èšé›†,ä½†ä¸é‡å 
 			var y = 0;
 			while(y < that.height - size){
 				if(checkDanmu(y, size, index)){
 					y++;
-				}else{//ÕÒµ½ºÏÊÊÎ»ÖÃ
+				}else{//æ‰¾åˆ°åˆé€‚ä½ç½®
 					return {'y':y,'index':index};
 				}
 			}
-		}else if(style == "Static"){//µ×²¿×ÖÄ»¾¡Á¿Ïòµ×²¿¾Û¼¯,µ«²»ÖØµş
-			var  y = that.height - height - 8;//´Óµ×²¿-ÎÄ×Ö¸ß¶È-µ×²¿±ß¾àµÄÎ»ÖÃ¿ªÊ¼ÍùÉÏÅÅ£¬Ä¬ÈÏµ×²¿±ß¾àÊÇ8.
+		}else if(style == "Static"){//åº•éƒ¨å­—å¹•å°½é‡å‘åº•éƒ¨èšé›†,ä½†ä¸é‡å 
+			var  y = that.height - height - 8;//ä»åº•éƒ¨-æ–‡å­—é«˜åº¦-åº•éƒ¨è¾¹è·çš„ä½ç½®å¼€å§‹å¾€ä¸Šæ’ï¼Œé»˜è®¤åº•éƒ¨è¾¹è·æ˜¯8.
 			while(y > 0){
 				if(checkDanmu(y, size, index)){
 					y--;
-				}else{//ÕÒµ½ºÏÊÊÎ»ÖÃ
+				}else{//æ‰¾åˆ°åˆé€‚ä½ç½®
 					return {'y':y,'index':index};
 				}
 			}
 		}
-		//Ã»ÓĞºÏÊÊÎ»ÖÃ£¬ÔÙ´Îµ÷ÓÃ±¾·½·¨
+		//æ²¡æœ‰åˆé€‚ä½ç½®ï¼Œå†æ¬¡è°ƒç”¨æœ¬æ–¹æ³•
 		return generateY(style, size, index+1 );
 	};
 };
 
 /**
- * ÏòFrameÖĞÌí¼Ó×Ô¶¨Òåµ¯Ä»¶ÔÏó.Ä¬ÈÏäÖÈ¾ÔÚÏÖÓĞ²ãµÄ×îºóÒ»²ã¼´×îÉÏ²ã.
- * @param [string]clazz ×Ô¶¨Òåµ¯Ä»Àà
- * @param [string]param ³õÊ¼»¯²ÎÊı,ÖÁÉÙÒª¸ølifeTime.eg: "{'lifeTime':4*60}"
+ * å‘Frameä¸­æ·»åŠ è‡ªå®šä¹‰å¼¹å¹•å¯¹è±¡.é»˜è®¤æ¸²æŸ“åœ¨ç°æœ‰å±‚çš„æœ€åä¸€å±‚å³æœ€ä¸Šå±‚.
+ * @param [string]clazz è‡ªå®šä¹‰å¼¹å¹•ç±»
+ * @param [string]param åˆå§‹åŒ–å‚æ•°,è‡³å°‘è¦ç»™lifeTime.eg: "{'lifeTime':4*60}"
  */
 DD.CommentFrame.prototype.addCustomSprite = function(clazz, param){
 	eval(clazz);
-	param = eval('('+param+')');//eval(s),Èç¹ûsÓï¾äÖ´ĞĞ½á¹ûÊÇÒ»¸öÖµ,Ôò·µ»Ø´ËÖµ,·ñÔò·µ»Øundefined.¶ÔÏóÉùÃ÷Óï·¨¡°{}¡±²¢²»ÄÜ·µ»ØÒ»¸öÖµ,ĞèÒªÓÃÀ¨ºÅÀ¨ÆğÀ´½«Æä×ª»»Îª±í´ïÊ½£¬²ÅÄÜ·µ»ØÆäÖµ£¬
+	param = eval('('+param+')');//eval(s),å¦‚æœsè¯­å¥æ‰§è¡Œç»“æœæ˜¯ä¸€ä¸ªå€¼,åˆ™è¿”å›æ­¤å€¼,å¦åˆ™è¿”å›undefined.å¯¹è±¡å£°æ˜è¯­æ³•â€œ{}â€å¹¶ä¸èƒ½è¿”å›ä¸€ä¸ªå€¼,éœ€è¦ç”¨æ‹¬å·æ‹¬èµ·æ¥å°†å…¶è½¬æ¢ä¸ºè¡¨è¾¾å¼ï¼Œæ‰èƒ½è¿”å›å…¶å€¼ï¼Œ
 	var customSprite = new CustomComment(param);
 
-	while(typeof this.layers[this.layers.length-1] == "undefined"){//Èç¹ûµ±Ç°µ¯Ä»²ã»¹²»´æÔÚ	
-		this.layers.push(new Array());//Ôö¼Óµ¯Ä»²ã
+	while(typeof this.layers[this.layers.length-1] == "undefined"){//å¦‚æœå½“å‰å¼¹å¹•å±‚è¿˜ä¸å­˜åœ¨	
+		this.layers.push(new Array());//å¢åŠ å¼¹å¹•å±‚
 	}
 	this.layers[this.layers.length-1].push(customSprite);
 };
 
 /**
  * @Override
- * ¶Ô±¾Ö¡½øĞĞ·Ö²ãäÖÈ¾
+ * å¯¹æœ¬å¸§è¿›è¡Œåˆ†å±‚æ¸²æŸ“
  */
 DD.CommentFrame.prototype.render = function() {
-	this.ctx.clearRect(0, 0, this.width, this.height);//Çå¿Õ½á¹û»­²¼
+	this.ctx.clearRect(0, 0, this.width, this.height);//æ¸…ç©ºç»“æœç”»å¸ƒ
 	var bufCanvasCtx = this.bufCanvas.getContext("2d");
-	bufCanvasCtx.clearRect(0, 0, this.width, this.height);//Çå¿Õbuffer»­²¼
-	//äÖÈ¾¸÷²ã¾«Áéµ½buffer»­²¼ÉÏ
+	bufCanvasCtx.clearRect(0, 0, this.width, this.height);//æ¸…ç©ºbufferç”»å¸ƒ
+	//æ¸²æŸ“å„å±‚ç²¾çµåˆ°bufferç”»å¸ƒä¸Š
 	for ( var i = 0; i < this.layers.length; i++) {
 		for (var j = 0; j < this.layers[i].length; j++) {
 			this.layers[i][j].draw(bufCanvasCtx);
 		}
 	}
-	//ÍùÖ÷Í¼²ãÉÏ»æÖÆbufferÍ¼²ã
+	//å¾€ä¸»å›¾å±‚ä¸Šç»˜åˆ¶bufferå›¾å±‚
 	this.ctx.drawImage(this.bufCanvas, 0, 0);
 };
 
 /**
- * Èç¹û²¥·ÅÆ÷seekÁË£¬Çå¿ÕËùÓĞµ¯Ä»
+ * å¦‚æœæ’­æ”¾å™¨seekäº†ï¼Œæ¸…ç©ºæ‰€æœ‰å¼¹å¹•
  */
 DD.CommentFrame.prototype.clearDanmu = function() {
 	for (var i=0; i < this.layers.length; i++) {
-		delete this.layers[i];//É¾³ıÏàÓ¦¶ÔÏó
+		delete this.layers[i];//åˆ é™¤ç›¸åº”å¯¹è±¡
 	}
-	this.layers = [];//Çå¿Õµ¯Ä»²ãÊı×é
+	this.layers = [];//æ¸…ç©ºå¼¹å¹•å±‚æ•°ç»„
 };
 /**
  * @Override
- * ¸üĞÂCommentFrameÖĞµ¯Ä»SpriteµÄ×´Ì¬
+ * æ›´æ–°CommentFrameä¸­å¼¹å¹•Spriteçš„çŠ¶æ€
  */
 DD.CommentFrame.prototype.updateSprite = function() {
 	for (var i=0; i < this.layers.length; i++) {			
 		for(var j = 0;j < this.layers[i].length; j++){
-			//¸üĞÂÎ»ÖÃ
+			//æ›´æ–°ä½ç½®
 			this.layers[i][j].move();
-			//¸üĞÂÉúÃü×´Ì¬
+			//æ›´æ–°ç”Ÿå‘½çŠ¶æ€
 			this.layers[i][j].updateLifeTime();		
 		}
 	}
 };
 /**
  * @Override
- * Çå³ıÒÑ¾­ËÀÍöµÄSprite
+ * æ¸…é™¤å·²ç»æ­»äº¡çš„Sprite
  */
 DD.CommentFrame.prototype.clearSprite = function() {
 	for (var i=0; i < this.layers.length; i++) {
 		for(var j = 0;j < this.layers[i].length; j++){
 			if(!this.layers[i][j].alive){ 
-				delete this.layers[i][j];//É¾³ıÏàÓ¦¶ÔÏó
-				this.layers[i] = this.layers[i].slice(0, j).concat(this.layers[i].slice(j+1, this.layers[i].length));//Çå³ıÊı×éÖĞ¸ÃÎ»ÖÃ
+				delete this.layers[i][j];//åˆ é™¤ç›¸åº”å¯¹è±¡
+				this.layers[i] = this.layers[i].slice(0, j).concat(this.layers[i].slice(j+1, this.layers[i].length));//æ¸…é™¤æ•°ç»„ä¸­è¯¥ä½ç½®
 			}
 		}
 	}

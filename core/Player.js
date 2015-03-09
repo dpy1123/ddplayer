@@ -1,5 +1,5 @@
  /**
- * Player¶ÔÏó£¬µ¯Ä»²¥·ÅÆ÷¿Ø¼ş¡£
+ * Playerå¯¹è±¡ï¼Œå¼¹å¹•æ’­æ”¾å™¨æ§ä»¶ã€‚
  * @constructor
  * @param {Integer} v_id A video id
  * @param {DOMElement} v_el The video node
@@ -9,20 +9,20 @@ DD.Player = function(v_id, v_el){
 	this.video = v_el;
 	this.isFullscreen = false;
 	this.isTrueFullscreen = false;
-	//»æÖÆcanvasÏà¹ØµÄ×é¼ş
+	//ç»˜åˆ¶canvasç›¸å…³çš„ç»„ä»¶
 	this.canvas = null;
 	this.frame = null;
-	//´æ·Å½âÎöºÃµÄµ¯Ä»ÄÚÈİ
+	//å­˜æ”¾è§£æå¥½çš„å¼¹å¹•å†…å®¹
 	this.danmus = [];
-	//Á¬½Óµ½ÊµÊ±µ¯Ä»·şÎñÆ÷µÄwebsocket	
+	//è¿æ¥åˆ°å®æ—¶å¼¹å¹•æœåŠ¡å™¨çš„websocket	
 	this.ws = null;
 };
 
 DD.Player.prototype = {
 	constructor: DD.Player,
 	/**
-	 * Òì²½³õÊ¼»¯·½·¨£¬ÔÚvideoµÄÔªÊı¾İ»ñÈ¡µ½ºóÔÙ³õÊ¼»¯¡£
-	 * ±ÜÃâvideoµÄoffsetWidthºÍoffsetHeightÔÚ³õÊ¼»¯Ê±Îª¿Õ£¬µ¼ÖÂcanvasµÄ³¤¿íºÍvideo²»Æ¥Åä¡£
+	 * å¼‚æ­¥åˆå§‹åŒ–æ–¹æ³•ï¼Œåœ¨videoçš„å…ƒæ•°æ®è·å–åˆ°åå†åˆå§‹åŒ–ã€‚
+	 * é¿å…videoçš„offsetWidthå’ŒoffsetHeightåœ¨åˆå§‹åŒ–æ—¶ä¸ºç©ºï¼Œå¯¼è‡´canvasçš„é•¿å®½å’Œvideoä¸åŒ¹é…ã€‚
 	 */
 	init: function(canvas_id, url, wsUrl){
 		var that = this;
@@ -31,34 +31,34 @@ DD.Player.prototype = {
 		},false);
 	},
 	/**
-	 * ³õÊ¼»¯·½·¨
-	 * @param url ³õ´Îloadµ¯Ä»µÄurl[ajax]
-	 * @param wsUrl Èç¹ûÉèÖÃÁËwsUrl£¬²¢ÇÒä¯ÀÀÆ÷Ö§³Ö£¬Ôò½¨Á¢wsÁ´½Ó£¬Í¨¹ıwsUrl»ñÈ¡ÊµÊ±µ¯Ä»¡£
+	 * åˆå§‹åŒ–æ–¹æ³•
+	 * @param url åˆæ¬¡loadå¼¹å¹•çš„url[ajax]
+	 * @param wsUrl å¦‚æœè®¾ç½®äº†wsUrlï¼Œå¹¶ä¸”æµè§ˆå™¨æ”¯æŒï¼Œåˆ™å»ºç«‹wsé“¾æ¥ï¼Œé€šè¿‡wsUrlè·å–å®æ—¶å¼¹å¹•ã€‚
 	 */
 	setup: function(canvas_id, url, wsUrl){
-		//³õÊ¼»¯»æÖÆcanvasÏà¹ØµÄ×é¼ş
-		var w = this.videoOriginWidth = this.video.offsetWidth;//¿Ø¼şµÄ¿í
-		var h = this.videoOriginHeight = this.video.offsetHeight;//¿Ø¼şµÄ¸ß
+		//åˆå§‹åŒ–ç»˜åˆ¶canvasç›¸å…³çš„ç»„ä»¶
+		var w = this.videoOriginWidth = this.video.offsetWidth;//æ§ä»¶çš„å®½
+		var h = this.videoOriginHeight = this.video.offsetHeight;//æ§ä»¶çš„é«˜
 		this.canvas = this.addCanvasElement(canvas_id, w, h);
-		//½«canvas²åÈëµ½videoÔªËØÇ°
+		//å°†canvasæ’å…¥åˆ°videoå…ƒç´ å‰
 		this.video.parentNode.insertBefore(this.canvas, this.video);
 
 		var canvasContext = this.canvas.getContext("2d");
 		this.frame = new DD.CommentFrame(w, h, canvasContext);
-		//´Ó·şÎñÆ÷»ñµÃµ¯Ä»ÄÚÈİ
+		//ä»æœåŠ¡å™¨è·å¾—å¼¹å¹•å†…å®¹
 		this.loadDanmus(url);
 			/*var danmuInfo = {//test
 					'start':this.tc2sec("00:00:04"),
 					'end':this.tc2sec("00:00:08"),
 					'style':"Static", 
-					'text':"ÖĞÎÄ²âÊÔ",
+					'text':"ä¸­æ–‡æµ‹è¯•",
 					'color':"rgb(255,255,255)",
 					//'font':danmu.font
 				};
 			this.danmus.push(danmuInfo);this.danmus.push(danmuInfo);//<==test*/
 
 		var that = this;
-		//ÔÚtimeupdateÊÂ¼şÖĞ£¬Ôö¼ÓÍùframeÖĞÌí¼ÓÒªäÖÈ¾µÄµ¯Ä»µÄÊÂ¼ş
+		//åœ¨timeupdateäº‹ä»¶ä¸­ï¼Œå¢åŠ å¾€frameä¸­æ·»åŠ è¦æ¸²æŸ“çš„å¼¹å¹•çš„äº‹ä»¶
 		this.video.addEventListener('timeupdate', function(){
 				that.addDanmu();
 		}, false);
@@ -69,11 +69,11 @@ DD.Player.prototype = {
 				that.playEvent();
 		}, false);
 		this.video.addEventListener('ended', function(){
-				that.frame.clearDanmu();//Çå¿Õ´ı»æÖÆµ¯Ä»
-				that.frame.render();//Çå¿ÕCanvas
+				that.frame.clearDanmu();//æ¸…ç©ºå¾…ç»˜åˆ¶å¼¹å¹•
+				that.frame.render();//æ¸…ç©ºCanvas
 		}, false);
 		this.video.addEventListener('seeked', function(){
-				that.frame.clearDanmu();//Çå¿Õ´ı»æÖÆµ¯Ä»
+				that.frame.clearDanmu();//æ¸…ç©ºå¾…ç»˜åˆ¶å¼¹å¹•
 		}, false);
 		
 		// true fullscreen
@@ -90,15 +90,15 @@ DD.Player.prototype = {
 				that.updateFullscreen(); 
 		}, false);
 
-		//Èç¹ûÉèÖÃÁËwsUrl£¬²¢ÇÒä¯ÀÀÆ÷Ö§³Ö£¬Ôò½¨Á¢wsÁ´½Ó
+		//å¦‚æœè®¾ç½®äº†wsUrlï¼Œå¹¶ä¸”æµè§ˆå™¨æ”¯æŒï¼Œåˆ™å»ºç«‹wsé“¾æ¥
 		if(wsUrl != null && wsUrl.toLowerCase().indexOf("ws://") == 0){
-			//½¨Á¢websocket
+			//å»ºç«‹websocket
 			if(this.ws == null)
 				this.setWsConnection(wsUrl);
 		}
 	},
 	/**
-	 * ´´½¨canvasÔªËØ
+	 * åˆ›å»ºcanvaså…ƒç´ 
 	 */
 	addCanvasElement: function (canvas_id, width, height) {
 		var e = document.createElement("canvas");
@@ -112,15 +112,15 @@ DD.Player.prototype = {
 		return e;
 	},
 	/**
-	 * ³õÊ¼»¯µÄÊ±ºò£¬´Ó·şÎñÆ÷»ñµÃµ¯Ä»ÄÚÈİ¡£
-	 * ÇëÇó¸ñÊ½http://dd.tv/getDanmus?id=xxx
+	 * åˆå§‹åŒ–çš„æ—¶å€™ï¼Œä»æœåŠ¡å™¨è·å¾—å¼¹å¹•å†…å®¹ã€‚
+	 * è¯·æ±‚æ ¼å¼http://dd.tv/getDanmus?id=xxx
 	 */
 	loadDanmus: function(url){
 		var loader = new DD.Loader(false);
 		loader.load(url, this.parseDanmus, this);
 	},
 	/**
-	 * ½«´Ó·şÎñÆ÷È¡µÃËùÓĞµ¯Ä»µÄÄÚÈİ£¬½øĞĞ½âÎö£¬·ÅÈëthis.danmus
+	 * å°†ä»æœåŠ¡å™¨å–å¾—æ‰€æœ‰å¼¹å¹•çš„å†…å®¹ï¼Œè¿›è¡Œè§£æï¼Œæ”¾å…¥this.danmus
 	 */
 	parseDanmus: function(jsonResp, scope){
 		for ( var i = 0; i < jsonResp.length; i++) {
@@ -139,8 +139,8 @@ DD.Player.prototype = {
 		}
 	},
 	/**
-	 * ÔÚtimeupdateÊ±µ÷ÓÃ£¬´Óthis.danmusÖĞÕÒ³öµ±Ç°Ê±¼ä(video.currentTime)Òª²¥·ÅµÄµ¯Ä»ÄÚÈİ£¬¼ÓÈëäÖÈ¾µÄµ¯Ä»frame.
-	 * ×¢Òâtimeupdate·½·¨£¬1ÃëÖÖÖ»´¥·¢4´Î£¬Ò²¾ÍÊÇËµ250ms´¥·¢Ò»´Î.
+	 * åœ¨timeupdateæ—¶è°ƒç”¨ï¼Œä»this.danmusä¸­æ‰¾å‡ºå½“å‰æ—¶é—´(video.currentTime)è¦æ’­æ”¾çš„å¼¹å¹•å†…å®¹ï¼ŒåŠ å…¥æ¸²æŸ“çš„å¼¹å¹•frame.
+	 * æ³¨æ„timeupdateæ–¹æ³•ï¼Œ1ç§’ç§åªè§¦å‘4æ¬¡ï¼Œä¹Ÿå°±æ˜¯è¯´250msè§¦å‘ä¸€æ¬¡.
 	 */
 	addDanmu : function(){
 		for(var i=0; i<this.danmus.length; i++){
@@ -165,25 +165,25 @@ DD.Player.prototype = {
 		}
 	},
 	/**
-	 * ÏÔÊ¾/Òş²Øµ¯Ä»µÄ´¦Àíº¯Êı
+	 * æ˜¾ç¤º/éšè—å¼¹å¹•çš„å¤„ç†å‡½æ•°
 	 */
 	toggleDanmu : function(){
-		if(this.frame.visible){//µ¯Ä»¿É¼û
-			this.frame.clearDanmu();//Çé¿öµ±Ç°ËùÓĞ´ıäÖÈ¾µ¯Ä»
-			this.frame.render();//ÖØ»æÒ»Ö¡¿ÕµÄÆÁÄ»
-			this.frame.stop();//Í£Ö¹Frame
-			this.frame.visible = false;//ÉèÖÃµ¯Ä»±ê¼ÇÎª²»¿É¼û
-		}else{//µ¯Ä»Òş²Ø
+		if(this.frame.visible){//å¼¹å¹•å¯è§
+			this.frame.clearDanmu();//æƒ…å†µå½“å‰æ‰€æœ‰å¾…æ¸²æŸ“å¼¹å¹•
+			this.frame.render();//é‡ç»˜ä¸€å¸§ç©ºçš„å±å¹•
+			this.frame.stop();//åœæ­¢Frame
+			this.frame.visible = false;//è®¾ç½®å¼¹å¹•æ ‡è®°ä¸ºä¸å¯è§
+		}else{//å¼¹å¹•éšè—
 			this.frame.begin();
 			this.frame.visible = true;
 		}
 	},
 	/**
-	 * Toggle fullscreen, ×¢ÒâÈç¹ûä¯ÀÀÆ÷Ö§³ÖÕæÈ«ÆÁ£¬ÔÚÈ«ÆÁµÄÊ±ºòresize´°¿Ú²»»á´¥·¢windowµÄresizeÊÂ¼ş¡£
+	 * Toggle fullscreen, æ³¨æ„å¦‚æœæµè§ˆå™¨æ”¯æŒçœŸå…¨å±ï¼Œåœ¨å…¨å±çš„æ—¶å€™resizeçª—å£ä¸ä¼šè§¦å‘windowçš„resizeäº‹ä»¶ã€‚
 	 * @return false to prevent default
 	 */
 	fullscreen : function(){
-		if(!this.isFullscreen){//±äÎªÈ«ÆÁ				
+		if(!this.isFullscreen){//å˜ä¸ºå…¨å±				
 			if(document.documentElement.requestFullscreen){
 				this.isTrueFullscreen = true;
 				document.documentElement.requestFullscreen();
@@ -195,30 +195,30 @@ DD.Player.prototype = {
 				document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);  
 			}
 
-			if(this.isTrueFullscreen){//Èç¹ûä¯ÀÀÆ÷Ö§³ÖÈ«ÆÁ
+			if(this.isTrueFullscreen){//å¦‚æœæµè§ˆå™¨æ”¯æŒå…¨å±
 				console.log('True fullscreen');
 				this.video.style.width = '100%';
 				this.video.style.height = (screen.height - 30)+'px';
 				document.body.style.overflow = 'hidden';
 				
-				//¸ü¸Äcanvas³ß´ç
+				//æ›´æ”¹canvaså°ºå¯¸
 				this.canvas.width = screen.width;
 				this.canvas.height = (screen.height - 30);
-			}else{//Î±È«ÆÁ
+			}else{//ä¼ªå…¨å±
 				console.log('Fake fullscreen');
 				this.video.style.width = window.innerWidth+'px';
 				this.video.style.height = (window.innerHeight - 30)+'px';
 				document.body.style.overflow = 'hidden';
 				
-				//¸ü¸Äcanvas³ß´ç
+				//æ›´æ”¹canvaså°ºå¯¸
 				this.canvas.width = window.innerWidth;
 				this.canvas.height = window.innerHeight;
 			}
 			this.isFullscreen = true;
 			
-			//¸ü¸Ä»æÖÆµ¯Ä»µÄFrameµÄ³ß´ç
+			//æ›´æ”¹ç»˜åˆ¶å¼¹å¹•çš„Frameçš„å°ºå¯¸
 			this.frame.resize(this.canvas.width, this.canvas.height);
-		}else{//ÍË³öÈ«ÆÁ
+		}else{//é€€å‡ºå…¨å±
 			if(document.cancelFullscreen){
 				document.cancelFullscreen();  
 			}else if(document.exitFullscreen){
@@ -237,12 +237,12 @@ DD.Player.prototype = {
 			this.isFullscreen = false;
 					
 			
-			//»¹Ô­canvas³ß´ç
+			//è¿˜åŸcanvaså°ºå¯¸
 			this.canvas.width = this.videoOriginWidth;
 			this.canvas.height = this.videoOriginHeight;
-			//»¹Ô­»æÖÆµ¯Ä»µÄFrameµÄ³ß´ç
+			//è¿˜åŸç»˜åˆ¶å¼¹å¹•çš„Frameçš„å°ºå¯¸
 			this.frame.resize(this.canvas.width, this.canvas.height);
-			this.frame.clearDanmu();//Çå¿ÕÒ»ÏÂÈ«ÆÁÊ±²¥·ÅµÄµ¯Ä»
+			this.frame.clearDanmu();//æ¸…ç©ºä¸€ä¸‹å…¨å±æ—¶æ’­æ”¾çš„å¼¹å¹•
 		}
 		
 		return false;
@@ -250,58 +250,58 @@ DD.Player.prototype = {
 		
 	/**
 	 * If fullscreen, auto-resize the player when the widow is resized
-	 * Î±È«ÆÁ×´Ì¬Ê±£¬ä¯ÀÀÆ÷´°¿Ú³ß´ç±ä»¯µÄ´¦Àíº¯Êı
+	 * ä¼ªå…¨å±çŠ¶æ€æ—¶ï¼Œæµè§ˆå™¨çª—å£å°ºå¯¸å˜åŒ–çš„å¤„ç†å‡½æ•°
 	 */
 	updateFullscreen : function(){
 		this.video.style.width = window.innerWidth+'px';
 		this.video.style.height = (window.innerHeight - 30)+'px';
 		
-		//¸ü¸Äcanvas³ß´ç
+		//æ›´æ”¹canvaså°ºå¯¸
 		this.canvas.width = window.innerWidth;
 		this.canvas.height = window.innerHeight-30;
-		//¸ü¸Ä»æÖÆµ¯Ä»µÄFrameµÄ³ß´ç
+		//æ›´æ”¹ç»˜åˆ¶å¼¹å¹•çš„Frameçš„å°ºå¯¸
 		this.frame.width = this.canvas.width;
 		this.frame.height = this.canvas.height-30;
 	},
 
 	setWsConnection: function(url){
-		//ÓëÊµÊ±µ¯Ä»·şÎñÆ÷½¨Á¢WebSocket
+		//ä¸å®æ—¶å¼¹å¹•æœåŠ¡å™¨å»ºç«‹WebSocket
 		if ('WebSocket' in window)  
 			this.ws = new WebSocket(url);  
 		else if ('MozWebSocket' in window)  
 			this.ws = new MozWebSocket(url);  
 		else  
 			console.warn("WebSocket not support");
-		//³õÊ¼»¯websocketÖĞµÄ·½·¨£¬Èç¹ûä¯ÀÀÆ÷Ö§³Öwebsocket
+		//åˆå§‹åŒ–websocketä¸­çš„æ–¹æ³•ï¼Œå¦‚æœæµè§ˆå™¨æ”¯æŒwebsocket
 		if(this.ws != null){
-			//µ±Á¬½Ó´ò¿ªÊ±µÄÊÂ¼ş
+			//å½“è¿æ¥æ‰“å¼€æ—¶çš„äº‹ä»¶
 			this.ws.onopen = function(evt) {
 				console.log("Openened connection to websocket");
 			};
-			//µ±Á¬½ÓÓĞĞÅÏ¢Ê±µÄÊÂ¼ş
+			//å½“è¿æ¥æœ‰ä¿¡æ¯æ—¶çš„äº‹ä»¶
 			this.ws.onmessage = function(msg) {
-				//½âÎö£¬¼ÓÈëµ¯Ä»×¼±¸¶ÓÁĞ
+				//è§£æï¼ŒåŠ å…¥å¼¹å¹•å‡†å¤‡é˜Ÿåˆ—
 				this.parseDanmus(msg.data);
 			};
 		}
 	},
 
 	/**
-	 * ·¢ËÍµ¯Ä»
-	 * @param url Èç¹ûÊÇws://sendDanmu,²¢ÇÒwsÁ´½ÓÒÑ½¨Á¢,ÔòÍ¨¹ıws·¢ËÍ;
-	 *			  Èç¹ûÊÇhttp://sendDanmu,ÔòÍ¨¹ıajax·¢ËÍ.
+	 * å‘é€å¼¹å¹•
+	 * @param url å¦‚æœæ˜¯ws://sendDanmu,å¹¶ä¸”wsé“¾æ¥å·²å»ºç«‹,åˆ™é€šè¿‡wså‘é€;
+	 *			  å¦‚æœæ˜¯http://sendDanmu,åˆ™é€šè¿‡ajaxå‘é€.
 	 */
 	sendDanmus: function(url,vid,uid,text,style,color,font){
-		if(text == null || text.trim() == "") return;//¿Õµ¯Ä»·µ»Ø
+		if(text == null || text.trim() == "") return;//ç©ºå¼¹å¹•è¿”å›
 
-		var start = this.video.currentTime;//·¢ËÍµ¯Ä»µÄÊ±¼ä£¬x.xxxxÃë
-		//´ı·¢ËÍµÄÄÚÈİ
+		var start = this.video.currentTime;//å‘é€å¼¹å¹•çš„æ—¶é—´ï¼Œx.xxxxç§’
+		//å¾…å‘é€çš„å†…å®¹
 		var content = {	'start':this.sec2tc(start),
 						'end':this.sec2tc(start+4),
 						'style':style,
 						'color':color,
 						'font':font,
-						'text':encodeURIComponent(text),//µ¯Ä»ÄÚÈİÖĞÎÄ±àÂëÒ»ÏÂ,ÍÆ¼öÊ¹ÓÃÕâ¸ö×ª»»×îÈ«Ãæ,Ê¹ÓÃencodeURI¶Ô'+'²»×ªÂë,ÔÚJavaºóÌ¨URLDecoder.decodeµÄÊ±ºò'+'»á±»Ìæ»»³É¿Õ¸ñ.
+						'text':encodeURIComponent(text),//å¼¹å¹•å†…å®¹ä¸­æ–‡ç¼–ç ä¸€ä¸‹,æ¨èä½¿ç”¨è¿™ä¸ªè½¬æ¢æœ€å…¨é¢,ä½¿ç”¨encodeURIå¯¹'+'ä¸è½¬ç ,åœ¨Javaåå°URLDecoder.decodeçš„æ—¶å€™'+'ä¼šè¢«æ›¿æ¢æˆç©ºæ ¼.
 						'level':"0",
 						'sendTime':new Date().toUTCString(),
 						'videoId':vid,
@@ -309,26 +309,26 @@ DD.Player.prototype = {
 					};
 		
 		if(url.toLowerCase().indexOf("ws://") == 0){
-			//½¨Á¢websocket
+			//å»ºç«‹websocket
 			if(this.ws == null)
 				this.setWsConnection(url);
-			//½«javascript¶ÔÏó×ª»»³Éjson×Ö·û´®£¬²¢·¢ËÍ
+			//å°†javascriptå¯¹è±¡è½¬æ¢æˆjsonå­—ç¬¦ä¸²ï¼Œå¹¶å‘é€
 			if(this.ws != null && this.ws.readyState == WebSocket.OPEN)
 				this.ws.send(JSON.stringify(content));
 			
-		}else{//ÓÃajax·½Ê½
+		}else{//ç”¨ajaxæ–¹å¼
 			var sender = new XMLHttpRequest();
 			sender.open('POST', url);
-			sender.setRequestHeader("CONTENT-TYPE","application/json");//POST£¬ÇÒÉèÖÃÊı¾İ¸ñÊ½ÊÇjson£¬·ñÔò·şÎñÆ÷»á±¨415´íÎó
+			sender.setRequestHeader("CONTENT-TYPE","application/json");//POSTï¼Œä¸”è®¾ç½®æ•°æ®æ ¼å¼æ˜¯jsonï¼Œå¦åˆ™æœåŠ¡å™¨ä¼šæŠ¥415é”™è¯¯
 			sender.onreadystatechange = function(){
 				if(sender.readyState == 4 && (sender.status == 200 || sender.status == 0)){
 					console.log("Comment ["+text+"] send succeed");
 				}
 			};
-			sender.send(JSON.stringify(content));//·¢ËÍÇëÇó
+			sender.send(JSON.stringify(content));//å‘é€è¯·æ±‚
 		}
 		
-		//½«¸Ã¶ÔÏó¼ÓÈë²¥·Åµ¯Ä»ÁĞ±í
+		//å°†è¯¥å¯¹è±¡åŠ å…¥æ’­æ”¾å¼¹å¹•åˆ—è¡¨
 		/*var danmuInfo = {
 					'start':this.tc2sec(content.start),
 					'end':this.tc2sec(content.end),
@@ -341,11 +341,13 @@ DD.Player.prototype = {
 		content.end = this.tc2sec(content.end);
 		content.text = decodeURIComponent(content.text);
 		this.danmus.push(content);
+		//å¹¶åŠ å…¥å½“å‰å¸§ç«‹åˆ»è¿›è¡Œç»˜åˆ¶
+		this.frame.addSprite(content.text,content.style,content.color,content.font);
 	},
 
 	sendCustomDanmus: function(url,vid,uid,clazz,param){
-		var start = this.video.currentTime;//·¢ËÍµ¯Ä»µÄÊ±¼ä£¬x.xxxxÃë
-		//´ı·¢ËÍµÄÄÚÈİ
+		var start = this.video.currentTime;//å‘é€å¼¹å¹•çš„æ—¶é—´ï¼Œx.xxxxç§’
+		//å¾…å‘é€çš„å†…å®¹
 		var content = {	'start':this.sec2tc(start),
 						'style':"Custom",
 						'level':"10",
@@ -357,30 +359,32 @@ DD.Player.prototype = {
 					};
 		
 		if(url.toLowerCase().indexOf("ws://") == 0){
-			//½¨Á¢websocket
+			//å»ºç«‹websocket
 			if(this.ws == null)
 				this.setWsConnection(url);
-			//½«javascript¶ÔÏó×ª»»³Éjson×Ö·û´®£¬²¢·¢ËÍ
+			//å°†javascriptå¯¹è±¡è½¬æ¢æˆjsonå­—ç¬¦ä¸²ï¼Œå¹¶å‘é€
 			if(this.ws != null && this.ws.readyState == WebSocket.OPEN)
 				this.ws.send(JSON.stringify(content));
 			
-		}else{//ÓÃajax·½Ê½
+		}else{//ç”¨ajaxæ–¹å¼
 			var sender = new XMLHttpRequest();
 			sender.open('POST', url);
-			sender.setRequestHeader("CONTENT-TYPE","application/json");//POST£¬ÇÒÉèÖÃÊı¾İ¸ñÊ½ÊÇjson£¬·ñÔò·şÎñÆ÷»á±¨415´íÎó
+			sender.setRequestHeader("CONTENT-TYPE","application/json");//POSTï¼Œä¸”è®¾ç½®æ•°æ®æ ¼å¼æ˜¯jsonï¼Œå¦åˆ™æœåŠ¡å™¨ä¼šæŠ¥415é”™è¯¯
 			sender.onreadystatechange = function(){
 				if(sender.readyState == 4 && (sender.status == 200 || sender.status == 0)){
 					console.log("Custom Comment send succeed");
 				}
 			};
-			sender.send(JSON.stringify(content));//·¢ËÍÇëÇó
+			sender.send(JSON.stringify(content));//å‘é€è¯·æ±‚
 		}
 		
-		//½«¸Ã¶ÔÏó¼ÓÈë²¥·Åµ¯Ä»ÁĞ±í
-		content.start = this.tc2sec(content.start)+0.5;
+		//å°†è¯¥å¯¹è±¡åŠ å…¥æ’­æ”¾å¼¹å¹•åˆ—è¡¨
+		content.start = this.tc2sec(content.start);
 		content.clazz = decodeURIComponent(content.clazz);
 		content.param = decodeURIComponent(content.param);
 		this.danmus.push(content);
+		//å¹¶åŠ å…¥å½“å‰å¸§ç«‹åˆ»è¿›è¡Œç»˜åˆ¶
+		this.frame.addCustomSprite(content.clazz, content.param);
 	},
 
 	/** 
@@ -390,7 +394,7 @@ DD.Player.prototype = {
 	 */
 	tc2sec: function(timecode){
 		var tab = timecode.split(':');
-		return tab[0]*60*60 + tab[1]*60 + tab.length==3?parseFloat(tab[2].replace(',','.')):0;
+		return tab[0]*60*60 + tab[1]*60 + (tab.length==3?parseFloat(tab[2].replace(',','.')):0);
 	},
 	/**
 	 * Convert seconds to HH:MM:SS
