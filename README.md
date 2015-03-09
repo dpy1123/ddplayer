@@ -64,7 +64,7 @@ player.sendDanmus(wsUrl,"vid","uid","DDtext中文","Scroll");//并且发送弹�
 
 演示Demo
 ========
-地址：http://1.ddplayer.duapp.com/  <br>
+地址：http://danmaku.jd-app.com/view.do?resourceId=54d466965c30f7bd354158c0  <br>
 
 视频播放器使用的是Playr：https://github.com/delphiki/Playr <br>
 颜色拾取面板是colorpicker：http://www.eyecon.ro/colorpicker/ <br>
