@@ -1,4 +1,3 @@
-
 CustomComment = function(param){
 	DD.Comment.call(this, param);
 };
@@ -30,8 +29,8 @@ CustomComment.prototype.draw = function(ctx) {
 //=================================
 
 /**
- * ×Ô¶¨Òåµ¯Ä»Àà£¬ÀàÃû²»Òª¸Ä¶¯.
- * [object]param ³õÊ¼»¯²ÎÊı,¿ÉÅäÖÃx, y, width, height, speed, text, lifeTime, color, fontºÍÆäËûÈÎÒâĞèÒªµÄ²ÎÊı,ÆäÖĞlifeTime(µ¥Î»ÊÇÖ¡)ÊÇ±ØĞëÒªÖ¸¶¨µÄ.
+ * è‡ªå®šä¹‰å¼¹å¹•ç±»ï¼Œç±»åä¸è¦æ”¹åŠ¨.
+ * [object]param åˆå§‹åŒ–å‚æ•°,å¯é…ç½®x, y, width, height, speed, text, lifeTime, color, fontå’Œå…¶ä»–ä»»æ„éœ€è¦çš„å‚æ•°,å…¶ä¸­lifeTime(å•ä½æ˜¯å¸§)æ˜¯å¿…é¡»è¦æŒ‡å®šçš„.
  */
 CustomComment = function(param){
 	DD.Comment.call(this, param);
@@ -39,7 +38,7 @@ CustomComment = function(param){
 
 CustomComment.prototype = Object.create(DD.Comment.prototype);
 /**
- * @Override ÒÔÊµÏÖ×Ô¶¨ÒåµÄ»æÍ¼
+ * @Override ä»¥å®ç°è‡ªå®šä¹‰çš„ç»˜å›¾
  */
 CustomComment.prototype.draw = function(ctx) {
 	ctx.save();
@@ -52,7 +51,7 @@ CustomComment.prototype.draw = function(ctx) {
 };
 /**
  * @Override 
- * ¸Ã·½·¨Ã¿Ö¡µ÷ÓÃÒ»´Î,Í¨¹ı¸Ä±ä×´Ì¬,À´ÊµÏÖ¶¯»­Ğ§¹û.
+ * è¯¥æ–¹æ³•æ¯å¸§è°ƒç”¨ä¸€æ¬¡,é€šè¿‡æ”¹å˜çŠ¶æ€,æ¥å®ç°åŠ¨ç”»æ•ˆæœ.
  */
 CustomComment.prototype.move = function() {
 	this.x++;

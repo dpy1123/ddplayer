@@ -23,47 +23,43 @@
 	<script type="text/javascript" src="Playr-master/playr.js"></script>
 	<script>
 	window.addEventListener('DOMContentLoaded',function(){
-		//ÒòÎªchromeºÍfirefox¶ÔÓÚvideo¼ÓÔØºÍload·½·¨µ÷ÓÃµÄÊ±»ú²»Í¬£¬ÔÚ´Ë×öfix¡£Ïê¼ûÎÊÌâ¼ÇÂ¼.txt
+		//å› ä¸ºchromeå’Œfirefoxå¯¹äºvideoåŠ è½½å’Œloadæ–¹æ³•è°ƒç”¨çš„æ—¶æœºä¸åŒï¼Œåœ¨æ­¤åšfixã€‚è¯¦è§é—®é¢˜è®°å½•.txt
 		load();
 	}, false);
-
 		var player;
 		function load() {
-			/*Ö¡Êı¼ì²â¹¤¾ß
+			/*å¸§æ•°æ£€æµ‹å·¥å…·
 			var stats = new Stats();
 			stats.domElement.style.position = 'absolute';
 			stats.domElement.style.top = '0px';
 			var container = document.getElementById( 'container' );
 			container.appendChild( stats.domElement );*/
-
-			/*²âÊÔ¶¯»­»ù´¡Àà
+			/*æµ‹è¯•åŠ¨ç”»åŸºç¡€ç±»
 			var sprite = new DD.Sprite(0, 0, 20, 20);
 			var ctx = document.getElementById('canvas').getContext("2d");
 			var frame = new DD.Frame(480, 320, ctx);
 			frame.addSprite(sprite);
 			frame.begin();*/
-
-			/*²âÊÔµ¯Ä»¶¯»­Ïà¹ØÀà
+			/*æµ‹è¯•å¼¹å¹•åŠ¨ç”»ç›¸å…³ç±»
 			var ctx = document.getElementById('canvas').getContext("2d");
 			var frame = new DD.CommentFrame(480, 320, ctx);
 			for(var i =0; i<300;i++){
 				frame.addSprite("DD"+i);
 			}
 			frame.begin = function(stats){
-				if(this.renderTimer != null) return;//·ÀÖ¹ÖØ¸´Æô¶¯				
-				//Ê¹ÓÃhtml5ĞÂÔöµÄrequestAnimFrame API
+				if(this.renderTimer != null) return;//é˜²æ­¢é‡å¤å¯åŠ¨				
+				//ä½¿ç”¨html5æ–°å¢çš„requestAnimFrame API
 				var that = this;
 				( function animate (){
-					that.updateSprite();//¸üĞÂSprite
-					that.clearSprite();//Çå³ıÎŞĞ§Sprite
+					that.updateSprite();//æ›´æ–°Sprite
+					that.clearSprite();//æ¸…é™¤æ— æ•ˆSprite
 					that.render();
-					stats.update();//¡¾ÖØĞ´£¬ÒÔ±ãµ÷ÓÃÖ¡Êı¹¤¾ß¡¿
+					stats.update();//ã€é‡å†™ï¼Œä»¥ä¾¿è°ƒç”¨å¸§æ•°å·¥å…·ã€‘
 					that.renderTimer = requestAnimationFrame(animate, that);
 				} )();
 			};
 			frame.begin(stats);*/
-
-			/*²âÊÔextend·½·¨
+			/*æµ‹è¯•extendæ–¹æ³•
 			var f = {
 				say:function(){alert("f-say");}
 				}
@@ -71,60 +67,51 @@
 			//jQuery.extend(s,f);
 			DD.extend(s,f);
 			s.say();*/
-
-			/*²âÊÔloader
+			/*æµ‹è¯•loader
 			var loader = new DD.Loader(true);
 			var div = loader.addStatusElement();
 			document.getElementById('container').appendChild(div);
 			loader.load("http://www.baidu.com/s?wd=withCredentials&rsv_bp=0&ch=&tn=nbmagician_ql&bar=&rsv_spt=3&ie=utf-8&rsv_n=2&rsv_sug3=1&rsv_sug1=1&rsv_sug4=88&inputT=526",function(a){alert(a);});*/
-
-			/*²âÊÔ¿ò¼ÜÖ÷Ìå*/
-			//var v = document.getElementById('dd'); //ÔÚChromeÏÂÓÃ'dd',ÒòÎªÕâÊ±ºòplayr½¨Á¢µÄvideo»¹Ã»ÓĞäÖÈ¾µ½dom,¶øÒÔÇ°µÄvideoÔªËØ»¹Ã»ÓĞÉ¾³ı
-			//var v = document.getElementById('playr_video_0');//ÔÚfirefoxÏÂ,playr½¨Á¢µÄvideoÁ¢¼´ÉúĞ§¶øÔ­À´µÄvideoÒÑ¾­É¾³ı,Òò´ËÔÚÕâÀïÓÃplayrµÄid
-			var v = document.querySelector("video");//»¹ÊÇÓÃquerySelectorÃ»ÓĞÊ²Ã´ÏŞÖÆ,×ÜÖ®ÎÒÖ»ÄÃ1¸övideoÔªËØ
-
+			/*æµ‹è¯•æ¡†æ¶ä¸»ä½“*/
+			//var v = document.getElementById('dd'); //åœ¨Chromeä¸‹ç”¨'dd',å› ä¸ºè¿™æ—¶å€™playrå»ºç«‹çš„videoè¿˜æ²¡æœ‰æ¸²æŸ“åˆ°dom,è€Œä»¥å‰çš„videoå…ƒç´ è¿˜æ²¡æœ‰åˆ é™¤
+			//var v = document.getElementById('playr_video_0');//åœ¨firefoxä¸‹,playrå»ºç«‹çš„videoç«‹å³ç”Ÿæ•ˆè€ŒåŸæ¥çš„videoå·²ç»åˆ é™¤,å› æ­¤åœ¨è¿™é‡Œç”¨playrçš„id
+			var v = document.querySelector("video");//è¿˜æ˜¯ç”¨querySelectoræ²¡æœ‰ä»€ä¹ˆé™åˆ¶,æ€»ä¹‹æˆ‘åªæ‹¿1ä¸ªvideoå…ƒç´ 
 			 
-			var playr = new Playr("dd", v);//[³õÊ¼»¯ÊÓÆµ²¥·ÅÆ÷]
-			player = new DD.Player("dd", v);//[³õÊ¼»¯µ¯Ä»²¥·ÅÆ÷]
+			var playr = new Playr("dd", v);//[åˆå§‹åŒ–è§†é¢‘æ’­æ”¾å™¨]
+			player = new DD.Player("dd", v);//[åˆå§‹åŒ–å¼¹å¹•æ’­æ”¾å™¨]
 			var url = "http://getDanmus";
 			var wsUrl = "ws://realTimeDanmus";
-			//Ö§³Öws°æ
+			//æ”¯æŒwsç‰ˆ
 			//player.init("canvas", url, wsUrl);
-			//player.sendDanmus(wsUrl,"vid","uid","DDtextÖĞÎÄ","Scroll");
-			//ajax°æ
-			player.init("canvas", url);//[³õÊ¼»¯µ¯Ä»²¥·ÅÆ÷]
-			player.sendDanmus("http://sendDanmus","vid","uid","DDtextÖĞÎÄ","Scroll","Red");
+			//player.sendDanmus(wsUrl,"vid","uid","DDtextä¸­æ–‡","Scroll");
+			//ajaxç‰ˆ
+			player.init("canvas", url, null, function(){
+				player.sendDanmus("http://sendDanmus","vid","uid","DDtextä¸­æ–‡","Scroll","Red");
+			});//[åˆå§‹åŒ–å¼¹å¹•æ’­æ”¾å™¨]
 			
-
 			
-			//ÕâÀïÄ£Äâvideo¿Ø¼şÖĞÌí¼ÓµÄplayÊÂ¼ş£¬ÎŞÓ°Ïì
+			//è¿™é‡Œæ¨¡æ‹Ÿvideoæ§ä»¶ä¸­æ·»åŠ çš„playäº‹ä»¶ï¼Œæ— å½±å“
 			//v.addEventListener('play', function(){ 
 					//alert("another play action");
 			//}, false);
-
-			//Ô¤ÖÃµÄ×Ô¶¨Òåµ¯Ä»Àà
+			//é¢„ç½®çš„è‡ªå®šä¹‰å¼¹å¹•ç±»
 			document.getElementById('customDanmu').value = 
 					"CustomComment = function(param){"+"\n"+
 					"	DD.Comment.call(this, param);"+"\n"+
 					"};"+"\n"+
-
 					"CustomComment.prototype = Object.create(DD.Comment.prototype);"+"\n"+
-
 					"CustomComment.prototype.draw = function(ctx) {"+"\n"+
 					"	ctx.save();"+"\n"+
-
 					"	ctx.fillStyle = this.color;"+"\n"+
 					"	ctx.rotate(Math.PI/6);"+"\n"+
 					"	ctx.fillText('Love', this.x, 0)"+"\n"+
 						
 					"	ctx.restore();"+"\n"+
 					"};"+"\n"+
-
 					"CustomComment.prototype.move = function() {"+"\n"+
 					"	this.x++;"+"\n"+
 					"};";
 		}
-
 		function sendCustomDanmu(){
 			var clazz = document.getElementById('customDanmu').value;
 			if(typeof clazz == "undefined") return;
@@ -138,14 +125,14 @@
  <body >
 	<div id="container"></div>
 	<div id="player" style="display: inline-block;">
-		<video id="dd" class="playr_video" >
-			<source src="http://bcs.duapp.com/ddplayer/video%2Ftest.mp4" type="video/mp4"></source>
+		<video id="dd" class="playr_video" width="480">
+			<source src="test.mp4" type="video/mp4"></source>
 		</video>
 	</div>
 	<div style="display: inline-block;">
 		<div>custom def: <textarea id="customDanmu" style="margin: 2px; width: 480px; height: 220px;"></textarea></div>
 		<div>param: <input id="param" value="{'lifeTime':4*60}"></div>
-		<button onclick="sendCustomDanmu()">×Ô¶¨Òåµ¯Ä»</button>
+		<button onclick="sendCustomDanmu()">è‡ªå®šä¹‰å¼¹å¹•</button>
 	</div>
  </body>
 </html>

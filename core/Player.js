@@ -24,10 +24,11 @@ DD.Player.prototype = {
 	 * 异步初始化方法，在video的元数据获取到后再初始化。
 	 * 避免video的offsetWidth和offsetHeight在初始化时为空，导致canvas的长宽和video不匹配。
 	 */
-	init: function(canvas_id, url, wsUrl){
+	init: function(canvas_id, url, wsUrl, callback){
 		var that = this;
 		this.video.addEventListener('loadeddata', function(){
 			that.setup(canvas_id, url, wsUrl);
+			callback();
 		},false);
 	},
 	/**
